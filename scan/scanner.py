@@ -9,6 +9,8 @@ upper_level = np.array([255, 255, 180])
 WIDTH, HEIGHT = (600, 600) # сюда следует записывать размеры экрана устройства
 # толщина линии контура
 THICKNESS = 3
+# цвет линии контура в формате BGR
+CONTOUR_COLOR = (255, 0, 0)
 
 
 def scanner(filename=""):
@@ -36,8 +38,22 @@ def scanner(filename=""):
         # ищем контуры и складируем их в переменную contours
         contours, hierarchy = cv.findContours(result, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_TC89_KCOS)
 
+        # попытка убрать маленькие контуры (для видео работает не очень)
+        # try:
+        #     counter = 0
+        #     while (counter < len(contours)):
+        #         if(contours[counter].shape[0] < 4):
+        #             contours.pop(counter)
+        #             hierarchy = np.delete(hierarchy, counter, axis = 1)
+        #         else:
+        #             counter += 1
+        # except IndexError as err:
+        #     print(err)
+
+        result = cv.cvtColor(result, cv.COLOR_BGR2BGRA)
         # отображаем контуры поверх изображения
-        cv.drawContours(result, contours, -1, (255, 255, 255), THICKNESS, cv.LINE_AA, hierarchy, 1)
+        cv.drawContours(frame, contours, -1, CONTOUR_COLOR, THICKNESS, cv.LINE_AA, hierarchy, 1)
+        cv.drawContours(result, contours, -1, CONTOUR_COLOR, THICKNESS, cv.LINE_AA, hierarchy, 1)
 
         # рисуем расположение долевой нити
         top_point = (int(dim[0] / 10), int(dim[1] / 10))
