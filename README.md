@@ -9,3 +9,4 @@
 ### Kivy/bulldozer:
 1. https://kivy.org/doc/stable/
 2. https://tproger.ru/translations/snake-android-python-kivy/
+3. https://www.youtube.com/playlist?list=PLvoBekrlHDgT2t0PH1J1VT_Bk2ziEAWMs
