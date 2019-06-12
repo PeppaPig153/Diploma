@@ -10,3 +10,14 @@
 1. https://kivy.org/doc/stable/
 2. https://tproger.ru/translations/snake-android-python-kivy/
 3. https://www.youtube.com/playlist?list=PLvoBekrlHDgT2t0PH1J1VT_Bk2ziEAWMs
+### Алгоритмы разложения:
+1. https://github.com/Jack000/SVGnest
+2. https://github.com/tamasmeszaros/libnest2d
+3. https://github.com/kallaballa/libnfporb
+4. https://www.uv.es/marsyan/docs/thesis.pdf
+5. https://pdfs.semanticscholar.org/4387/34e5e10c1aaa9e2680eead2c7331dea393c1.pdf
+6. https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.62.9051&rep=rep1&type=pdf
+7. https://eprints.soton.ac.uk/414693/1/23._Final_submission_of_thesis.pdf
+8. https://www.ic.unicamp.br/~fkm/publication/irregular.pdf
+9. http://mayuexin.me/zxg_css/SGP_2018_final.pdf
+10. http://www.cs.nott.ac.uk/~pszgxk/papers/gxwPhDthesis.pdf
