@@ -1,0 +1,41 @@
+#:import MDToolbar kivymd.toolbar.MDToolbar
+#:import MDDropdownMenu kivymd.menus.MDDropdownMenu
+
+<MenuPanel>:
+    anchor_x: 'center'
+    anchor_y: 'top'
+
+    MDToolbar:
+        title: 'Меню'
+        md_bg_color: [0, 0, 1, 1]
+        right_action_items: [['dots-vertical', lambda x: print("Menu")]]
+
+
+
+#:import MDFillRoundFlatButton kivymd.button.MDFillRoundFlatButton
+
+<StartPage>:
+    orientation: 'vertical'
+    size_hint: (.7, .3)
+    spacing: 50
+
+    MDFillRoundFlatButton:
+        text: 'Создать новый'
+        size_hint: (1., 1.)
+        on_press: root.btn_new_press_function()
+
+    MDFillRoundFlatButton:
+        text: 'Открыть старый'
+        size_hint: (1., 1.)
+        on_press: root.btn_old_press_function()
+
+
+<OldProjectsPage>:
+    anchor_x: 'center'
+    anchor_y: 'bottom'
+    size_hint: (1., .9)
+
+
+
+
+
