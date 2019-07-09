@@ -7,8 +7,8 @@
 
     MDToolbar:
         title: 'Меню'
-        md_bg_color: [0, 0, 1, 1]
-        right_action_items: [['dots-vertical', lambda x: print("Menu")]]
+        md_bg_color: [33/256, 150/256, 244/256, 1]
+        right_action_items: [['dots-vertical', lambda x: MDDropdownMenu(items=root.menu_items, width_mult=3).open(self)]]
 
 
 
@@ -35,6 +35,28 @@
     anchor_y: 'bottom'
     size_hint: (1., .9)
 
+
+#:import MDTextField kivymd.textfields.MDTextField
+
+<NewNamePage>:
+    anchor_x: 'center'
+    anchor_y: 'center'
+    size_hint: (.7, 1.)
+
+    MDTextField:
+        hint_text: "Введите название изделия"
+        max_text_length: 30
+        required: True
+
+
+#:import OneLineListItem kivymd.list.OneLineListItem
+#:import MDIconButton kivymd.button.MDIconButton
+
+<ListItem>:
+
+    MDIconButton:
+        icon: 'close'
+        pos_hint: {'top': 1, 'right': 1}
 
 
 
