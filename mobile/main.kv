@@ -1,5 +1,40 @@
 #:import MDToolbar kivymd.toolbar.MDToolbar
 #:import MDDropdownMenu kivymd.menus.MDDropdownMenu
+#:import MDFillRoundFlatButton kivymd.button.MDFillRoundFlatButton
+#:import OneLineListItem kivymd.list.OneLineListItem
+#:import MDIconButton kivymd.button.MDIconButton
+#:import MDTextField kivymd.textfields.MDTextField
+#:import MDLabel kivymd.label.MDLabel
+#:import MDFloatingActionButton kivymd.button.MDFloatingActionButton
+
+
+<AboutUsPage>:
+    anchor_x: 'center'
+    anchor_y: 'center'
+    size_hint: (.8, .8)
+
+    MDLabel:
+        text: "О нас"
+        font_style: 'Subtitle1'
+        theme_text_color: 'Primary'
+        markup: True
+        halign: 'center'
+
+
+
+<InstructionPage>:
+    anchor_x: 'center'
+    anchor_y: 'center'
+    size_hint: (.8, .8)
+
+    MDLabel:
+        text: "Инструкция"
+        font_style: 'Subtitle1'
+        theme_text_color: 'Primary'
+        markup: True
+        halign: 'center'
+
+
 
 <MenuPanel>:
     anchor_x: 'center'
@@ -7,12 +42,10 @@
 
     MDToolbar:
         title: 'Меню'
-        md_bg_color: [33/256, 150/256, 244/256, 1]
+        md_bg_color: app.theme_cls.primary_color
         right_action_items: [['dots-vertical', lambda x: MDDropdownMenu(items=root.menu_items, width_mult=3).open(self)]]
 
 
-
-#:import MDFillRoundFlatButton kivymd.button.MDFillRoundFlatButton
 
 <StartPage>:
     orientation: 'vertical'
@@ -30,33 +63,50 @@
         on_press: root.btn_old_press_function()
 
 
+
+<ListItem>:
+    MDIconButton:
+        icon: 'close'
+        pos_hint: {'top': 1, 'right': 1}
+
+
+
 <OldProjectsPage>:
     anchor_x: 'center'
     anchor_y: 'bottom'
-    size_hint: (1., .9)
+    size_hint: (1., .8)
 
 
-#:import MDTextField kivymd.textfields.MDTextField
+
+<BottomNavigationButton>:
+    anchor_x: 'left'
+    anchor_y: 'bottom'
+    size_hint: (1., 1.)
+    padding: 20
+
+    MDFloatingActionButton:
+        icon: root.icon
+        opposite_colors: True
+        elevation_normal: 8
+        md_bg_color: app.theme_cls.primary_color
+        on_press: root.press_function()
+
+
 
 <NewNamePage>:
     anchor_x: 'center'
     anchor_y: 'center'
-    size_hint: (.7, 1.)
+    size_hint: (1., 1.)
 
     MDTextField:
         hint_text: "Введите название изделия"
         max_text_length: 30
         required: True
+        size_hint: (.7, .1)
 
 
-#:import OneLineListItem kivymd.list.OneLineListItem
-#:import MDIconButton kivymd.button.MDIconButton
+<ProjectPhotosPage>:
 
-<ListItem>:
-
-    MDIconButton:
-        icon: 'close'
-        pos_hint: {'top': 1, 'right': 1}
 
 
 

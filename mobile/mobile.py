@@ -7,24 +7,97 @@ from kivymd.list import MDList, OneLineListItem
 from kivymd.toast.kivytoast import toast
 
 
-class MenuPanel(AnchorLayout):
+
+# нижние кнопки навигации
+class BottomNavigationButton(AnchorLayout):
+    icon = 'plus'
+
+    def __init__(self, press_function):
+        super().__init__()
+        self.press_function = press_function
+        return
+
+class RightArrow(BottomNavigationButton):
+    icon = 'arrow-right'
+
+    def __init__(self, press_function):
+        super().__init__(press_function)
+        self.anchor_x = 'right'
+        return
+
+class LeftArrow(BottomNavigationButton):
+    icon = 'arrow-left'
+
+    def __init__(self, press_function):
+        super().__init__(press_function)
+        self.anchor_x = 'left'
+        return
+
+class Plus(BottomNavigationButton):
+    icon = 'plus'
+
+    def __init__(self, press_function):
+        super().__init__(press_function)
+        self.anchor_x = 'center'
+        return
+
+# страница "О нас"
+class AboutUsPage(AnchorLayout):
     def __init__(self):
         super().__init__()
+        return
+
+# страница "Инструкция"
+class InstructionPage(AnchorLayout):
+    def __init__(self):
+        super().__init__()
+        return
+
+# страница добавления фотографий в новый проект
+class ProjectPhotosPage(AnchorLayout):
+    def __init__(self):
+        super().__init__()
+        self.add_widget(LeftArrow(self.left_arrow_press_function))
+        self.add_widget(Plus(self.plus_press_function))
+        self.add_widget(RightArrow(self.right_arrow_press_function))
+        return
+
+    def left_arrow_press_function(self):
+        pass
+
+    def plus_press_function(self):
+        pass
+
+    def right_arrow_press_function(self):
+        pass
+
+# верхнее панель меню
+class MenuPanel(AnchorLayout):
+    ___menu_item_names = ('Главная страница', 'Инструкция', 'О нас')
+
+    def __init__(self, MainLayout):
+        super().__init__()
+        self.MainLayout = MainLayout
         self.menu_items = [{'viewclass': 'MDMenuItem',
-                            'text': 'Главная страница',
+                            'text': self.___menu_item_names[0],
                             'callback': self.callback_for_menu_items},
                            {'viewclass': 'MDMenuItem',
-                            'text': 'Помощь',
+                            'text': self.___menu_item_names[1],
                             'callback': self.callback_for_menu_items},
                            {'viewclass': 'MDMenuItem',
-                            'text': 'О нас',
+                            'text': self.___menu_item_names[2],
                             'callback': self.callback_for_menu_items}]
         return
 
     def callback_for_menu_items(self, *args):
-        toast(args[0])
+        if(args[0] == self.___menu_item_names[0]):
+            self.MainLayout.new_page(StartPage(self.MainLayout))
+        elif(args[0] == self.___menu_item_names[1]):
+            self.MainLayout.new_page(InstructionPage())
+        else:
+            self.MainLayout.new_page(AboutUsPage())
 
-
+# стартовая страница
 class StartPage(BoxLayout):
     def __init__(self, MainLayout):
         super().__init__()
@@ -32,24 +105,20 @@ class StartPage(BoxLayout):
         return
 
     def btn_new_press_function(self):
-        self.MainLayout.clear()
-        self.MainLayout.page = NewNamePage()
-        self.MainLayout.add_widget(self.MainLayout.page)
+        self.MainLayout.new_page(NewNamePage(self.MainLayout))
         return
 
     def btn_old_press_function(self):
-        self.MainLayout.clear()
-        self.MainLayout.page = OldProjectsPage()
-        self.MainLayout.add_widget(self.MainLayout.page)
+        self.MainLayout.new_page(OldProjectsPage())
         return
 
-
+# элемент списка существующих проектов
 class ListItem(OneLineListItem):
     def __init__(self, text):
         super().__init__(text=text)
         return
 
-
+# страница со списком существующих проектов
 class OldProjectsPage(AnchorLayout):
     ListOfProjects = ["1 item", "2 item", '3 item']
     def __init__(self):
@@ -64,11 +133,18 @@ class OldProjectsPage(AnchorLayout):
         self.add_widget(AL)
         return
 
-
+# страница введения названия нового проекта
 class NewNamePage(AnchorLayout):
-    def __init__(self):
+    def __init__(self, MainLayout):
         super().__init__()
+        self.MainLayout = MainLayout
+        self.add_widget(RightArrow(self.right_arrow_press_function))
         return
+
+    def right_arrow_press_function(self):
+        self.MainLayout.new_page(ProjectPhotosPage())
+        return
+
 
 # главный слой
 class MainLayout(AnchorLayout):
@@ -77,7 +153,7 @@ class MainLayout(AnchorLayout):
     # инициализация
     def __init__(self):
         super().__init__(anchor_x='center', anchor_y='center')
-        self.add_widget(MenuPanel())
+        self.add_widget(MenuPanel(self))
         self.start()
         return
 
@@ -88,21 +164,15 @@ class MainLayout(AnchorLayout):
             pass
         return
 
+    def new_page(self, page):
+        self.clear()
+        self.page = page
+        self.add_widget(self.page)
+
     # стартовая страница
     def start(self):
-        self.clear()
-        self.page = StartPage(self)
-        self.add_widget(self.page)
+        self.new_page(StartPage(self))
         return self
-
-    # функции кнопок
-    def btn_new_press(self):
-        print("new")
-        return
-
-    def btn_old_press(self):
-        print("old")
-        return
 
 
 class MainApp(App):
