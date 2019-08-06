@@ -1,11 +1,13 @@
-from kivy.app import App
+import os
+
 from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.scrollview import ScrollView
 
-from kivymd.theming import ThemeManager
 from kivymd.list import MDList, OneLineListItem
 from kivymd.toast.kivytoast import toast
-
+from kivymd.utils.cropimage import crop_image
+from kivymd.imagelists import SmartTile
 
 
 # нижние кнопки навигации
@@ -17,6 +19,7 @@ class BottomNavigationButton(AnchorLayout):
         self.press_function = press_function
         return
 
+
 class RightArrow(BottomNavigationButton):
     icon = 'arrow-right'
 
@@ -24,6 +27,7 @@ class RightArrow(BottomNavigationButton):
         super().__init__(press_function)
         self.anchor_x = 'right'
         return
+
 
 class LeftArrow(BottomNavigationButton):
     icon = 'arrow-left'
@@ -33,6 +37,7 @@ class LeftArrow(BottomNavigationButton):
         self.anchor_x = 'left'
         return
 
+
 class Plus(BottomNavigationButton):
     icon = 'plus'
 
@@ -41,6 +46,7 @@ class Plus(BottomNavigationButton):
         self.anchor_x = 'center'
         return
 
+
 # страница "О нас"
 class AboutUsPage(AnchorLayout):
     def __init__(self, MainLayout):
@@ -48,12 +54,14 @@ class AboutUsPage(AnchorLayout):
         self.MainLayout = MainLayout # главный слой
         return
 
+
 # страница "Инструкция"
 class InstructionPage(AnchorLayout):
     def __init__(self, MainLayout):
         super().__init__()
         self.MainLayout = MainLayout # главный слой
         return
+
 
 # верхнее панель меню
 class MenuPanel(AnchorLayout):
@@ -81,6 +89,7 @@ class MenuPanel(AnchorLayout):
         else:
             self.MainLayout.new_page("AboutUsPage")
 
+
 # стартовая страница
 class StartPage(BoxLayout):
     def __init__(self, MainLayout):
@@ -89,12 +98,13 @@ class StartPage(BoxLayout):
         return
 
     def btn_new_press_function(self):
-        self.MainLayout.new_page("NewNamePage")
+        self.MainLayout.new_page("ProjectNamePage")
         return
 
     def btn_old_press_function(self):
         self.MainLayout.new_page("OldProjectsPage")
         return
+
 
 # элемент списка существующих проектов
 class ListItem(OneLineListItem):
@@ -102,25 +112,21 @@ class ListItem(OneLineListItem):
         super().__init__(text=text)
         return
 
+
 # страница со списком существующих проектов
 class OldProjectsPage(AnchorLayout):
-    ListOfProjects = ["1 item", "2 item", '3 item']
+    ListOfProjects = ["1 item", "2 item", "3 item", "4 item", "5 item", "6 item", "7 item", "8 item", "9 item",
+                      "10 item", "11 item", "12 item", "13 item", "14 item", "15 item"]
 
     def __init__(self, MainLayout):
         super().__init__()
-        self.MainLayout = MainLayout # главный слой
-        AL = AnchorLayout(anchor_x='center',
-                          anchor_y='top',
-                          size_hint=(1., 1.))
-        MDL = MDList()
+        self.MainLayout = MainLayout  # главный слой
         for name in self.ListOfProjects:
-            MDL.add_widget(ListItem(text=name))
-        AL.add_widget(MDL)
-        self.add_widget(AL)
+            self.ids["MDL"].add_widget(ListItem(text=name))
         return
 
 # страница введения названия нового проекта
-class NewNamePage(AnchorLayout):
+class ProjectNamePage(AnchorLayout):
     def __init__(self, MainLayout):
         super().__init__()
         self.MainLayout = MainLayout # главный слой
@@ -130,6 +136,23 @@ class NewNamePage(AnchorLayout):
     def right_arrow_press_function(self):
         self.MainLayout.new_page("ProjectPhotosPage")
         return
+
+
+class TileImage(SmartTile):
+    def __init__(self, path_to_crop_image):
+        super().__init__()
+        try:
+            self.crop_image_for_tile([20, 20], path_to_crop_image)
+        except Exception as err:
+            print(err)
+
+    def crop_image_for_tile(self, size, path_to_crop_image):
+        if not os.path.exists(os.path.join(self.directory, path_to_crop_image)):
+            size = (int(size[0]), int(size[1]))
+            path_to_origin_image = path_to_crop_image.replace("_tile_crop", "")
+            crop_image(size, path_to_origin_image, path_to_crop_image)
+        self.source = path_to_crop_image
+
 
 # страница добавления фотографий в новый проект
 class ProjectPhotosPage(AnchorLayout):
@@ -142,7 +165,7 @@ class ProjectPhotosPage(AnchorLayout):
         return
 
     def left_arrow_press_function(self):
-        self.MainLayout.new_page("NewNamePage")
+        self.MainLayout.new_page("ProjectNamePage")
         return
 
     def plus_press_function(self):
@@ -158,7 +181,7 @@ class MainLayout(AnchorLayout):
     menu_panel = None
     pages = {
         "StartPage": None,
-        "NewNamePage": None,
+        "ProjectNamePage": None,
         "OldProjectsPage": None,
         "ProjectPhotosPage": None,
         "InstructionPage": None,
@@ -170,7 +193,7 @@ class MainLayout(AnchorLayout):
         super().__init__(anchor_x='center', anchor_y='center')
         # нициализация дочерних объектов
         self.pages["StartPage"] = StartPage(self)
-        self.pages["NewNamePage"] = NewNamePage(self)
+        self.pages["ProjectNamePage"] = ProjectNamePage(self)
         self.pages["OldProjectsPage"] = OldProjectsPage(self)
         self.pages["ProjectPhotosPage"] = ProjectPhotosPage(self)
         self.pages["InstructionPage"] = InstructionPage(self)
@@ -196,15 +219,5 @@ class MainLayout(AnchorLayout):
 
 
 
-class MainApp(App):
-    STATIC_PATH = "./static"
-    SRC_PATH = "./src"
 
-    theme_cls = ThemeManager()
-    title = "My App"
-
-    def build(self):
-        self.theme_cls.theme_style = 'Light'
-
-        return MainLayout()
 

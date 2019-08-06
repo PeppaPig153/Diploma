@@ -6,6 +6,7 @@
 #:import MDTextField kivymd.textfields.MDTextField
 #:import MDLabel kivymd.label.MDLabel
 #:import MDFloatingActionButton kivymd.button.MDFloatingActionButton
+#:import MDList kivymd.list.MDList
 
 
 <AboutUsPage>:
@@ -14,6 +15,7 @@
     size_hint: (.8, .8)
 
     MDLabel:
+        id: about_us_label
         text: "О нас"
         font_style: 'Subtitle1'
         theme_text_color: 'Primary'
@@ -74,7 +76,21 @@
 <OldProjectsPage>:
     anchor_x: 'center'
     anchor_y: 'bottom'
-    size_hint: (1., .8)
+    size_hint: (1., 1.)
+
+    ScrollView:
+        size_hint: (1., .9)
+        do_scroll_x: False
+        do_scroll_y: True
+
+        AnchorLayout:
+            anchor_x: 'center'
+            anchor_y: 'center'
+            size_hint: (1., 1.)
+
+            MDList:
+                id: MDL
+                size_hint: (1., 1.)
 
 
 
@@ -93,7 +109,7 @@
 
 
 
-<NewNamePage>:
+<ProjectNamePage>:
     anchor_x: 'center'
     anchor_y: 'center'
     size_hint: (1., 1.)
@@ -101,11 +117,38 @@
     MDTextField:
         hint_text: "Введите название изделия"
         max_text_length: 30
-        required: True
+        #required: True
         size_hint: (.7, .1)
 
 
+
+<TileImage>:
+    mipmap: True
+
+
 <ProjectPhotosPage>:
+    anchor_x: 'center'
+    anchor_y: 'bottom'
+    size_hint: (1., 1.)
+
+    #AnchorLayout:
+    #    id: panel
+    #    anchor_x: 'center'
+    #    anchor_y: 'bottom'
+    #    size_hint: (1., .3)
+
+    AnchorLayout:
+        id: photos
+        anchor_x: 'center'
+        anchor_y: 'bottom'
+        size_hint: (1., .8)
+
+        ScrollView:
+            do_scroll_x: False
+
+            GridLayout:
+                cols: 2
+                size_hint: (1., 1.)
 
 
 
