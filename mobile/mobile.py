@@ -4,10 +4,10 @@ from kivy.uix.anchorlayout import AnchorLayout
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.scrollview import ScrollView
 
-from kivymd.list import MDList, OneLineListItem
+from kivymd.uix.list import MDList, OneLineListItem
 from kivymd.toast.kivytoast import toast
 from kivymd.utils.cropimage import crop_image
-from kivymd.imagelists import SmartTile
+from kivymd.uix.imagelist import SmartTile
 
 
 # нижние кнопки навигации
@@ -47,11 +47,20 @@ class Plus(BottomNavigationButton):
         return
 
 
+class Shoot(BottomNavigationButton):
+    icon = 'camera'
+
+    def __init__(self, press_function):
+        super().__init__(press_function)
+        self.anchor_x = 'center'
+        return
+
+
 # страница "О нас"
 class AboutUsPage(AnchorLayout):
     def __init__(self, MainLayout):
         super().__init__()
-        self.MainLayout = MainLayout # главный слой
+        self.MainLayout = MainLayout  # главный слой
         return
 
 
@@ -59,7 +68,7 @@ class AboutUsPage(AnchorLayout):
 class InstructionPage(AnchorLayout):
     def __init__(self, MainLayout):
         super().__init__()
-        self.MainLayout = MainLayout # главный слой
+        self.MainLayout = MainLayout  # главный слой
         return
 
 
@@ -69,7 +78,7 @@ class MenuPanel(AnchorLayout):
 
     def __init__(self, MainLayout):
         super().__init__()
-        self.MainLayout = MainLayout # главный слой
+        self.MainLayout = MainLayout  # главный слой
         self.menu_items = [{'viewclass': 'MDMenuItem',
                             'text': self.___menu_item_names[0],
                             'callback': self.callback_for_menu_items},
@@ -82,9 +91,9 @@ class MenuPanel(AnchorLayout):
         return
 
     def callback_for_menu_items(self, *args):
-        if(args[0] == self.___menu_item_names[0]):
+        if (args[0] == self.___menu_item_names[0]):
             self.MainLayout.new_page("StartPage")
-        elif(args[0] == self.___menu_item_names[1]):
+        elif (args[0] == self.___menu_item_names[1]):
             self.MainLayout.new_page("InstructionPage")
         else:
             self.MainLayout.new_page("AboutUsPage")
@@ -94,7 +103,7 @@ class MenuPanel(AnchorLayout):
 class StartPage(BoxLayout):
     def __init__(self, MainLayout):
         super().__init__()
-        self.MainLayout = MainLayout # главный слой
+        self.MainLayout = MainLayout  # главный слой
         return
 
     def btn_new_press_function(self):
@@ -125,11 +134,12 @@ class OldProjectsPage(AnchorLayout):
             self.ids["MDL"].add_widget(ListItem(text=name))
         return
 
+
 # страница введения названия нового проекта
 class ProjectNamePage(AnchorLayout):
     def __init__(self, MainLayout):
         super().__init__()
-        self.MainLayout = MainLayout # главный слой
+        self.MainLayout = MainLayout  # главный слой
         self.add_widget(RightArrow(self.right_arrow_press_function))
         return
 
@@ -158,7 +168,7 @@ class TileImage(SmartTile):
 class ProjectPhotosPage(AnchorLayout):
     def __init__(self, MainLayout):
         super().__init__()
-        self.MainLayout = MainLayout # главный слой
+        self.MainLayout = MainLayout  # главный слой
         self.add_widget(LeftArrow(self.left_arrow_press_function))
         self.add_widget(Plus(self.plus_press_function))
         self.add_widget(RightArrow(self.right_arrow_press_function))
@@ -169,7 +179,7 @@ class ProjectPhotosPage(AnchorLayout):
         return
 
     def plus_press_function(self):
-        pass
+        self.MainLayout.new_page("CameraPage")
 
     def right_arrow_press_function(self):
         pass
@@ -185,7 +195,8 @@ class MainLayout(AnchorLayout):
         "OldProjectsPage": None,
         "ProjectPhotosPage": None,
         "InstructionPage": None,
-        "AboutUsPage": None
+        "AboutUsPage": None,
+        "CameraPage": None
     }
 
     # инициализация
@@ -198,6 +209,7 @@ class MainLayout(AnchorLayout):
         self.pages["ProjectPhotosPage"] = ProjectPhotosPage(self)
         self.pages["InstructionPage"] = InstructionPage(self)
         self.pages["AboutUsPage"] = AboutUsPage(self)
+        self.pages["CameraPage"] = CameraPage(self)
         # добавление панели управления
         self.menu_panel = MenuPanel(self)
         self.add_widget(self.menu_panel)
@@ -219,5 +231,18 @@ class MainLayout(AnchorLayout):
 
 
 
+class CameraPage(AnchorLayout):
+    def __init__(self, MainLayout):
+        super().__init__()
+        self.add_widget(Shoot(self.capture))
+        self.MainLayout = MainLayout  # главный слой
 
-
+    def capture(self):
+        '''
+        Function to capture the images and give them the names
+        according to their captured time and date.
+        '''
+        # camera = self.ids['camera']
+        # timestr = time.strftime("%Y%m%d_%H%M%S")
+        # camera.export_to_png("IMG_{}.png".format(timestr))
+        print("Captured")
