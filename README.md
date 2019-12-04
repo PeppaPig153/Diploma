@@ -21,3 +21,11 @@
 8. https://www.ic.unicamp.br/~fkm/publication/irregular.pdf
 9. http://mayuexin.me/zxg_css/SGP_2018_final.pdf
 10. http://www.cs.nott.ac.uk/~pszgxk/papers/gxwPhDthesis.pdf
+
+---
+### Алгоритмы распознавания:
+1. https://cyberleninka.ru/article/n/algoritm-i-programma-raspoznavaniya-konturov-izobrazheniy-kak-posledovatelnosti-otrezkov-tsifrovyh-pryamyh/viewer
+2. https://habr.com/ru/post/114452/
+3. http://wiki.technicalvision.ru/index.php/Выделение_и_описание_контуров
+4. https://cyberleninka.ru/article/n/sravnenie-bibliotek-kompyuternogo-zreniya-dlya-primeneniya-v-prilozhenii-ispolzuyuschem-tehnologiyu-raspoznavaniya-ploskih/viewer
+5. http://lostapp.ru/soft/opencv
