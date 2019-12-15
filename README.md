@@ -35,4 +35,4 @@
 9. http://masters.donntu.org/2014/fknt/metelytsia/library/article11.htm
 10. http://lostapp.ru/soft/opencv
 11. http://repo.ssau.ru/bitstream/Metodicheskie-ukazaniya/Lokalnye-metody-vydeleniya-konturov-Elektronnyi-resurs-elektron-metod-ukazaniya-k-lab-rabote-2-53487/1/%D0%A1%D0%B5%D1%80%D0%B3%D0%B5%D0%B5%D0%B2%20%D0%92.%D0%92.%20%D0%9B%D0%BE%D0%BA%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5%20%D0%BC%D0%B5%D1%82%D0%BE%D0%B4%D1%8B.pdf
-
+12. https://moluch.ru/archive/193/48447/
