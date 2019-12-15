@@ -29,3 +29,4 @@
 3. http://wiki.technicalvision.ru/index.php/Выделение_и_описание_контуров
 4. https://cyberleninka.ru/article/n/sravnenie-bibliotek-kompyuternogo-zreniya-dlya-primeneniya-v-prilozhenii-ispolzuyuschem-tehnologiyu-raspoznavaniya-ploskih/viewer
 5. http://lostapp.ru/soft/opencv
+6. https://habr.com/ru/post/208090/
