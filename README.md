@@ -21,6 +21,10 @@
 8. https://www.ic.unicamp.br/~fkm/publication/irregular.pdf
 9. http://mayuexin.me/zxg_css/SGP_2018_final.pdf
 10. http://www.cs.nott.ac.uk/~pszgxk/papers/gxwPhDthesis.pdf
+11. https://nestprofessor.com/articles/Nesting%20software%20Algorithm.pdf
+12.http://vmk.ugatu.ac.ru/c%26p/article/A060414.pdf
+13. https://www.sciencedirect.com/science/article/pii/S0166218X12001308
+14. https://www.sciencedirect.com/science/article/pii/S1877705817315461
 
 ---
 ### Алгоритмы распознавания:
