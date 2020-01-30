@@ -1,0 +1,6 @@
+
+*
+!.gitignore
+!./mobile/*
+!./scanner/*
+!main.py

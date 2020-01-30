@@ -1,18 +1,19 @@
-from mobile.mobile import MainLayout
-from kivy.app import App
+from mobile.MainLayout import MainLayout
+from kivymd.app import MDApp
 from kivymd.theming import ThemeManager
 
 
-class MainApp(App):
+class MainApp(MDApp):
     STATIC_PATH = "./static"
     SRC_PATH = "./src"
 
-    theme_cls = ThemeManager()
-    title = "My App"
+    def __init__(self, **kwargs):
+        self.title = "My App"
+        self.theme_cls = ThemeManager()
+        super().__init__(**kwargs)
 
     def build(self):
         self.theme_cls.theme_style = 'Light'
-
         return MainLayout()
 
 if __name__ == "__main__":
