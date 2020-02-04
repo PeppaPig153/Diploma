@@ -1,5 +1,5 @@
-*
-!.gitignore
-!/mobile/*.py
-!/scanner/*.py
-!main.py
+venv
+/share
+/.idea
+/examples
+**/__pycache__/**
