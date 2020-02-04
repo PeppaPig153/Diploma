@@ -1,5 +1,5 @@
 *
 !.gitignore
-!./mobile/*
-!./scanner/*
+!/mobile/*.py
+!/scanner/*.py
 !main.py
