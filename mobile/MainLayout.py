@@ -1,12 +1,6 @@
 from kivy.uix.anchorlayout import AnchorLayout
 
 from .Pages import StartPage
-# from .ProjectNamePage import ProjectNamePage
-# from .OldProjectsPage import OldProjectsPage
-# from .ProjectPhotosPage import ProjectPhotosPage
-# from .InstructionPage import InstructionPage
-# from .AboutUsPage import AboutUsPage
-# from .CameraPage import CameraPage
 from .MenuPanel import MenuPanel
 
 

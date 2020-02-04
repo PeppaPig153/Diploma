@@ -1,13 +1,10 @@
 from kivy.uix.boxlayout import BoxLayout
-from kivy.lang import Builder
 from kivy.uix.anchorlayout import AnchorLayout
-from .BottomNavigationButtons import RightArrow, LeftArrow, Plus, Shoot
 from kivy.factory import Factory
-from kivy.uix.image import Image
-from kivymd.app import MDApp
-from kivymd.uix.list import IRightBodyTouch, ILeftBody
-from kivymd.uix.selectioncontrol import MDCheckbox
-from kivymd.uix.list import OneLineAvatarIconListItem
+from kivy.lang import Builder
+
+
+from .BottomNavigationButtons import RightArrow, LeftArrow, Plus, Shoot
 
 
 Builder.load_string("""
@@ -81,7 +78,6 @@ Builder.load_string("""
         icon: 'close'
         pos_hint: {'top': 1, 'right': 1}
 
-
 <ScrollList>:
     orientation: "vertical"
     size_hint: (1., 1.)
@@ -95,14 +91,6 @@ Builder.load_string("""
     anchor_y: 'bottom'
     size_hint: (1., 1.)
 """)
-
-
-class MyCheckbox(IRightBodyTouch, MDCheckbox):
-    pass
-
-
-class MyAvatar(ILeftBody, Image):
-    pass
 
 
 class ScrollList(BoxLayout):
@@ -126,8 +114,6 @@ class OldProjectsPage(AnchorLayout):
 ########################################################################################################################
 
 Builder.load_string("""
-
-
 <ProjectPhotosPage>:
     anchor_x: 'center'
     anchor_y: 'bottom'
@@ -165,12 +151,10 @@ class ProjectPhotosPage(AnchorLayout):
         return
 
     def left_arrow_press_function(self):
-        # self.layout.new_page(ProjectNamePage(self.layout))
-        pass
+        self.layout.new_page(ProjectNamePage(self.layout))
 
     def plus_press_function(self):
         self.layout.new_page(CameraPage(self.layout))
-        return
 
     def right_arrow_press_function(self):
         pass
@@ -178,7 +162,7 @@ class ProjectPhotosPage(AnchorLayout):
 ########################################################################################################################
 
 Builder.load_string("""
-
+#:import Window kivy.core.window.Window
 
 <CameraPage>:
     anchor_x: 'center'
@@ -187,13 +171,8 @@ Builder.load_string("""
 
     Camera:
         id: camera
-        resolution: (400, 800)
+        resolution: Window.size
         play: True
-    #Button:
-    #    text: 'Capture'
-    #    size_hint_y: None
-    #    height: '48dp'
-    #    on_press: root.capture()
 """)
 
 

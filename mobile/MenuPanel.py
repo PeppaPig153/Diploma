@@ -4,8 +4,6 @@ from kivy.uix.anchorlayout import AnchorLayout
 from .Pages import StartPage
 from .StaticPages import InstructionPage, AboutUsPage
 
-from kivymd.uix.menu import MDDropdownMenu
-
 
 Builder.load_string("""
 #:import MDToolbar kivymd.uix.toolbar.MDToolbar
