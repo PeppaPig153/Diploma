@@ -18,14 +18,12 @@ Builder.load_string("""
         title: 'Меню'
         md_bg_color: app.theme_cls.primary_color
         right_action_items: [['dots-vertical', lambda x: MDDropdownMenu(items=root.menu_items, width_mult=3).open(self)]]
-
-
 """)
 
 
 # верхнее панель меню
 class MenuPanel(AnchorLayout):
-    menu_item_names = ('Главная страница', 'Инструкция', 'О нас')
+    menu_item_names = ('Главная', 'Инструкция', 'О нас')
 
     def __init__(self, layout):
         super().__init__()

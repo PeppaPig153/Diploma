@@ -2,6 +2,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.anchorlayout import AnchorLayout
 from kivy.factory import Factory
 from kivy.lang import Builder
+from kivymd.toast import toast
 
 
 from .BottomNavigationButtons import RightArrow, LeftArrow, Plus, Shoot
@@ -77,6 +78,7 @@ Builder.load_string("""
     MDIconButton:
         icon: 'close'
         pos_hint: {'top': 1, 'right': 1}
+        on_press: print(root.text)
 
 <ScrollList>:
     orientation: "vertical"
@@ -109,7 +111,10 @@ class OldProjectsPage(AnchorLayout):
         for name in self.ListOfProjects:
             self.list.ids["scroll"].add_widget(Factory.ListItem(text=name))
         self.add_widget(self.list)
-        return
+
+    def delete_item(self, name):
+        toast(name)
+
 
 ########################################################################################################################
 
