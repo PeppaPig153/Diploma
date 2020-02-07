@@ -1,11 +1,15 @@
+import time
+import os
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.anchorlayout import AnchorLayout
 from kivy.factory import Factory
 from kivy.lang import Builder
 from kivymd.toast import toast
+from kivy.uix.image import Image
 
 
-from .BottomNavigationButtons import RightArrow, LeftArrow, Plus, Shoot
+from .BottomNavigationButtons import RightArrow, LeftArrow, Plus, Shoot, OK, Cancel
+from scanner.scanner import Scanner
 
 
 Builder.load_string("""
@@ -35,7 +39,7 @@ class StartPage(BoxLayout):
         return
 
     def btn_new_press_function(self):
-        self.layout.new_page(ProjectNamePage(self.layout))
+        self.layout.new_page(ProjectPhotosPage(self.layout))
         return
 
     def btn_old_press_function(self):
@@ -43,36 +47,6 @@ class StartPage(BoxLayout):
         return
 
 ########################################################################################################################
-
-Builder.load_string("""
-#:import MDTextField kivymd.uix.textfield.MDTextField
-
-<ProjectNamePage>:
-    anchor_x: 'center'
-    anchor_y: 'center'
-    size_hint: (1., 1.)
-
-    MDTextField:
-        hint_text: "Название проекта"
-        max_text_length: 30
-        #required: True
-        size_hint: (.7, .1)
-""")
-
-# страница введения названия нового проекта
-class ProjectNamePage(AnchorLayout):
-    def __init__(self, layout):
-        super().__init__()
-        self.layout = layout  # главный слой
-        self.add_widget(RightArrow(self.right_arrow_press_function))
-        return
-
-    def right_arrow_press_function(self):
-        self.layout.new_page(ProjectPhotosPage(self.layout))
-        return
-
-########################################################################################################################
-
 Builder.load_string("""
 <ListItem@OneLineListItem>:
     MDIconButton:
@@ -150,19 +124,14 @@ class ProjectPhotosPage(AnchorLayout):
     def __init__(self, layout):
         super().__init__()
         self.layout = layout  # главный слой
-        self.add_widget(LeftArrow(self.left_arrow_press_function))
         self.add_widget(Plus(self.plus_press_function))
         self.add_widget(RightArrow(self.right_arrow_press_function))
-        return
-
-    def left_arrow_press_function(self):
-        self.layout.new_page(ProjectNamePage(self.layout))
 
     def plus_press_function(self):
         self.layout.new_page(CameraPage(self.layout))
 
     def right_arrow_press_function(self):
-        pass
+        self.layout.new_page(SettingsPage(self.layout))
 
 ########################################################################################################################
 
@@ -191,11 +160,88 @@ class CameraPage(AnchorLayout):
         # canvas = appuifw.Canvas()
 
     def capture(self):
-        '''
-        Function to capture the images and give them the names
-        according to their captured time and date.
-        '''
-        # camera = self.ids['camera']
-        # timestr = time.strftime("%Y%m%d_%H%M%S")
-        # camera.export_to_png("IMG_{}.png".format(timestr))
-        print("Captured")
+        self.ids['camera'].play = False
+        camera = self.ids['camera']
+        path_to_img = os.path.join(os.path.abspath('.'),"src/IMG_{}.png".format(time.strftime("%Y%m%d_%H%M%S")))
+        camera.export_to_png(path_to_img)
+        print("Captured", path_to_img)
+        Scanner().scan(path_to_img)
+        self.layout.new_page(ContourPage(self.layout, path_to_img))
+
+
+########################################################################################################################
+
+Builder.load_string("""
+<ContourPage>:
+    Image:
+        id: image
+        size: self.texture_size
+""")
+
+class ContourPage(AnchorLayout):
+    def __init__(self, layout, path_to_img):
+        super().__init__()
+        self.layout = layout
+        self.path_to_img = path_to_img
+        self.ids['image'].source = path_to_img
+        self.add_widget(OK(self.ok_press_function))
+        self.add_widget(Cancel(self.cancel_press_function))
+
+    def ok_press_function(self):
+        print("OK")
+        self.layout.new_page(ProjectPhotosPage(self.layout))
+
+    def cancel_press_function(self):
+        print("Cancel")
+        os.remove(self.path_to_img)
+        self.layout.new_page(ProjectPhotosPage(self.layout))
+
+
+########################################################################################################################
+
+Builder.load_string("""
+#:import MDTextField kivymd.uix.textfield.MDTextField
+
+<SettingsPage>:
+    anchor_x: 'center'
+    anchor_y: 'center'
+    size_hint: (1., 1.)
+    
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint: (.7, .5)
+        spacing: 50
+    
+        MDTextField:
+            hint_text: "Название проекта"
+            max_text_length: 30
+            required: True
+            size_hint: (1, .1)
+        
+        MDTextField:
+            input_filter: "int"
+            hint_text: "Длина стороны квадрата"
+            required: True
+            size_hint: (1, .1)
+            
+        MDTextField:
+            input_filter: "int"
+            hint_text: "Ширина прямоугольника"
+            required: True
+            size_hint: (1, .1)
+""")
+
+class SettingsPage(AnchorLayout):
+    def __init__(self, layout):
+        super().__init__()
+        self.layout = layout  # главный слой
+        self.add_widget(LeftArrow(self.left_arrow_press_function))
+        self.add_widget(RightArrow(self.right_arrow_press_function))
+        return
+
+    def left_arrow_press_function(self):
+        self.layout.new_page(ProjectPhotosPage(self.layout))
+
+    def right_arrow_press_function(self):
+        print("Right")
+

@@ -15,7 +15,6 @@ class Scanner:
         except IOError:
             print('Unable to open file!')
         else:
-
             frame = cv.imread(filename)  # получение кадра
             hsv = cv.cvtColor(frame, cv.COLOR_BGR2HSV) # изменение цветовой схемы
 
@@ -30,18 +29,19 @@ class Scanner:
             contours, hierarchy = cv.findContours(result, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_TC89_KCOS)
 
             # попытка убрать маленькие контуры (для видео работает не очень)
-            try:
-                counter = 0
-                while (counter < len(contours)):
-                    if(contours[counter].shape[0] < 4):
-                        contours.pop(counter)
-                        hierarchy = np.delete(hierarchy, counter, axis = 1)
-                    else:
-                        counter += 1
-            except IndexError as err:
-                print(err)
+            # try:
+            #     counter = 0
+            #     while (counter < len(contours)):
+            #         if(contours[counter].shape[0] < 4):
+            #             contours.pop(counter)
+            #             hierarchy = np.delete(hierarchy, counter, axis = 1)
+            #         else:
+            #             counter += 1
+            # except IndexError as err:
+            #     print(err)
 
             cv.drawContours(frame, contours, -1, self.CONTOUR_COLOR, self.THICKNESS, cv.LINE_AA, hierarchy, 1)
+            cv.imwrite(filename, frame)
 
             return contours
 
