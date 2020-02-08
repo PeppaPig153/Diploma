@@ -1,8 +1,8 @@
 venv
 /share
 /src
-/bin
 /.idea
 /.buildozer
+/bin
 /examples
 **/__pycache__/**
