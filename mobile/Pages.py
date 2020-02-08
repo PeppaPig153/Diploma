@@ -5,7 +5,9 @@ from kivy.uix.anchorlayout import AnchorLayout
 from kivy.factory import Factory
 from kivy.lang import Builder
 from kivymd.toast import toast
-from kivy.uix.image import Image
+# from kivy.uix.image import Image
+# from kivy.uix.camera import Camera
+from kivy.core.window import Window
 
 
 from .BottomNavigationButtons import RightArrow, LeftArrow, Plus, Shoot, OK, Cancel
@@ -30,6 +32,7 @@ Builder.load_string("""
         size_hint: (1., 1.)
         on_press: root.btn_old_press_function()
 """)
+
 
 # стартовая страница
 class StartPage(BoxLayout):
@@ -98,12 +101,6 @@ Builder.load_string("""
     anchor_y: 'bottom'
     size_hint: (1., 1.)
 
-    #AnchorLayout:
-    #    id: panel
-    #    anchor_x: 'center'
-    #    anchor_y: 'bottom'
-    #    size_hint: (1., .3)
-
     AnchorLayout:
         id: photos
         anchor_x: 'center'
@@ -135,6 +132,7 @@ class ProjectPhotosPage(AnchorLayout):
 
 ########################################################################################################################
 
+
 Builder.load_string("""
 #:import Window kivy.core.window.Window
 
@@ -145,8 +143,9 @@ Builder.load_string("""
 
     Camera:
         id: camera
-        resolution: Window.size
+        resolution: (320,640)
         play: True
+        orientation: 'vertical'
 """)
 
 
@@ -162,7 +161,8 @@ class CameraPage(AnchorLayout):
     def capture(self):
         self.ids['camera'].play = False
         camera = self.ids['camera']
-        path_to_img = os.path.join(os.path.abspath('.'),"src/IMG_{}.png".format(time.strftime("%Y%m%d_%H%M%S")))
+        print(camera.size, Window.size)
+        path_to_img = os.path.join(os.path.abspath('.'), "src/IMG_{}.png".format(time.strftime("%Y%m%d_%H%M%S")))
         camera.export_to_png(path_to_img)
         print("Captured", path_to_img)
         Scanner().scan(path_to_img)
@@ -177,6 +177,7 @@ Builder.load_string("""
         id: image
         size: self.texture_size
 """)
+
 
 class ContourPage(AnchorLayout):
     def __init__(self, layout, path_to_img):
@@ -230,6 +231,7 @@ Builder.load_string("""
             required: True
             size_hint: (1, .1)
 """)
+
 
 class SettingsPage(AnchorLayout):
     def __init__(self, layout):

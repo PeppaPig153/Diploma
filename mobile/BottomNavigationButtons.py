@@ -85,7 +85,7 @@ Builder.load_string("""
 
 
 class BottomRectangleButton(AnchorLayout):
-    icon = 'plus'
+    text = ''
 
     def __init__(self, press_function):
         super().__init__()
