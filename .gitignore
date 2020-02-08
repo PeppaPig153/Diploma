@@ -1,6 +1,7 @@
 venv
 /share
 /src
+/bin
 /.idea
 /.buildozer
 /examples
