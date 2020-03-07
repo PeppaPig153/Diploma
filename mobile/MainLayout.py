@@ -1,6 +1,6 @@
 from kivy.uix.anchorlayout import AnchorLayout
 
-from .Pages import StartPage
+from .StaticPages import StartPage
 from .MenuPanel import MenuPanel
 
 
@@ -12,8 +12,6 @@ class MainLayout(AnchorLayout):
         self.menu_panel = MenuPanel(self)
         self.add_widget(self.menu_panel)
         self.new_page(StartPage(self))
-        return
-
 
     def new_page(self, new_page):
         self.layout.clear_widgets()

@@ -9,47 +9,14 @@ from kivymd.toast import toast
 # from kivy.uix.camera import Camera
 from kivy.core.window import Window
 
-
 from .BottomNavigationButtons import RightArrow, LeftArrow, Plus, Shoot, OK, Cancel
 from scanner.scanner import Scanner
 
 
-Builder.load_string("""
-#:import MDFillRoundFlatButton kivymd.uix.button.MDFillRoundFlatButton
-
-<StartPage>:
-    orientation: 'vertical'
-    size_hint: (.7, .3)
-    spacing: 50
-
-    MDFillRoundFlatButton:
-        text: 'Создать новый'
-        size_hint: (1., 1.)
-        on_press: root.btn_new_press_function()
-
-    MDFillRoundFlatButton:
-        text: 'Открыть старый'
-        size_hint: (1., 1.)
-        on_press: root.btn_old_press_function()
-""")
-
-
-# стартовая страница
-class StartPage(BoxLayout):
-    def __init__(self, layout):
-        super().__init__()
-        self.layout = layout  # главный слой
-        return
-
-    def btn_new_press_function(self):
-        self.layout.new_page(ProjectPhotosPage(self.layout))
-        return
-
-    def btn_old_press_function(self):
-        self.layout.new_page(OldProjectsPage(self.layout))
-        return
 
 ########################################################################################################################
+# Scroll list
+
 Builder.load_string("""
 <ListItem@OneLineListItem>:
     MDIconButton:
@@ -75,8 +42,9 @@ Builder.load_string("""
 class ScrollList(BoxLayout):
     pass
 
-
+########################################################################################################################
 # страница со списком существующих проектов
+
 class OldProjectsPage(AnchorLayout):
     ListOfProjects = ["1 item", "2 item", "3 item", "4 item", "5 item", "6 item", "7 item", "8 item", "9 item",
                       "10 item", "11 item", "12 item", "13 item", "14 item", "15 item"]
@@ -92,8 +60,33 @@ class OldProjectsPage(AnchorLayout):
     def delete_item(self, name):
         toast(name)
 
+########################################################################################################################
+# класс, отвечающий за открытие, закрытие и хранение данных по ветке нового проекта
+class NewProject(AnchorLayout):
+    def __init__(self, layout):
+        super().__init__()
+        self.layout = layout
+
+        self.contours = [] # текущие контуры
+        self.ProjectPhotosPage = ProjectPhotosPage(layout) # фотографии текущего проекта
+        self.CameraPage = CameraPage(layout) # страница с камерой
+        self.SettingsPage = SettingsPage(layout) # страница настроек
+
+        self.layout.new_page(self.ProjectPhotosPage)
+        self.layout.new_page(self.CameraPage)
+        self.CameraPage.size_hint = (0., 0.)
+        self.layout.new_page(self.SettingsPage)
+        self.SettingsPage.size_hint = (0., 0.)
+
+
+
+
+
+
+
 
 ########################################################################################################################
+# страница добавления фотографий в новый проект
 
 Builder.load_string("""
 <ProjectPhotosPage>:
@@ -116,7 +109,6 @@ Builder.load_string("""
 """)
 
 
-# страница добавления фотографий в новый проект
 class ProjectPhotosPage(AnchorLayout):
     def __init__(self, layout):
         super().__init__()
@@ -131,7 +123,7 @@ class ProjectPhotosPage(AnchorLayout):
         self.layout.new_page(SettingsPage(self.layout))
 
 ########################################################################################################################
-
+# камера
 
 Builder.load_string("""
 #:import Window kivy.core.window.Window
@@ -143,11 +135,18 @@ Builder.load_string("""
 
     Camera:
         id: camera
-        resolution: (320,640)
+        # resolution: (320,640)
+        # play: True
+        # orientation: 'vertical'
+        
+        resolution: Window.width, Window.height
         play: True
-        orientation: 'vertical'
+        size_hint: None, None
+        height: Window.height
+        width: Window.width
+        allow_stretch: True
+        keep_ratio: False
 """)
-
 
 class CameraPage(AnchorLayout):
     def __init__(self, layout):
@@ -170,6 +169,7 @@ class CameraPage(AnchorLayout):
 
 
 ########################################################################################################################
+# отображение фотографии с контурами
 
 Builder.load_string("""
 <ContourPage>:
@@ -177,7 +177,6 @@ Builder.load_string("""
         id: image
         size: self.texture_size
 """)
-
 
 class ContourPage(AnchorLayout):
     def __init__(self, layout, path_to_img):
@@ -199,10 +198,10 @@ class ContourPage(AnchorLayout):
 
 
 ########################################################################################################################
+# настройки проекта
 
 Builder.load_string("""
 #:import MDTextField kivymd.uix.textfield.MDTextField
-
 <SettingsPage>:
     anchor_x: 'center'
     anchor_y: 'center'
@@ -231,7 +230,6 @@ Builder.load_string("""
             required: True
             size_hint: (1, .1)
 """)
-
 
 class SettingsPage(AnchorLayout):
     def __init__(self, layout):

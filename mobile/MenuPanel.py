@@ -1,8 +1,7 @@
 from kivy.lang import Builder
 from kivy.uix.anchorlayout import AnchorLayout
 
-from .Pages import StartPage
-from .StaticPages import InstructionPage, AboutUsPage
+from .StaticPages import InstructionPage, AboutUsPage, StartPage
 
 
 Builder.load_string("""

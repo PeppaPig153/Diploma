@@ -112,12 +112,16 @@ def scanner_image(filename=""):
         dim = (int(w * HEIGHT / h), HEIGHT) if (h > w) else (WIDTH, int(h * WIDTH / w))
         frame = cv.resize(frame, dim, interpolation=cv.INTER_AREA)
 
-        hsv = cv.cvtColor(frame, cv.COLOR_BGR2HSV)  # изменение цветовой схемы
-
-        mask = cv.inRange(hsv, lower_level, upper_level)  # накладывае на кадр цветовой фильтр в заданном диапазоне
-
-        res = cv.bitwise_and(frame, frame, mask=mask)  # вычисляет битовое соединение двух массивов или массива и скаляра
-        # для каждого элемента
+        # вот это нужно проверить
+        # image – Source, an 8 - bit single - channel image. Non - zero pixels are treated as 1’s.Zero pixels
+        # remain 0’s, so the image is treated as binary.You can use
+        # compare(), inRange(), threshold(), adaptiveThreshold(), Canny(), and othersto create a binary image out
+        # of a grayscale or color one.The function  modifies the image while extracting the contours.
+        # hsv = cv.cvtColor(frame, cv.COLOR_BGR2HSV)  # изменение цветовой схемы
+        # src_gray = cv.blur(hsv, (3, 3))
+        # cv.threshold(image, image, 128, 255, CV_THRESH_BINARY);
+        # mask = cv.inRange(hsv, lower_level, upper_level)  # накладывае на кадр цветовой фильтр в заданном диапазоне
+        # res = cv.bitwise_and(frame, frame, mask=mask)  # вычисляет битовое соединение двух массивов или массива и скаляра
 
         result = cv.Canny(frame, 100, 200, 1)  # детектор границ Кенни
 
@@ -141,6 +145,22 @@ def scanner_image(filename=""):
         cv.namedWindow('Result', cv.WINDOW_AUTOSIZE)
         cv.imshow('Result', result)
 
+        f = open('path.svg', 'w+')
+        f.write('<svg width="' + str(w//2) + '" height="' + str(h//2) + '" xmlns="http://www.w3.org/2000/svg">')
+
+
+        for contour in contours:
+            if cv.contourArea(contour) > 10:
+                f.write('<path d="M ')
+                for i in range(len(contour)):
+                    x, y = contour[i][0]
+                    f.write(str(x) + ' ' + str(y) + ' ')
+                f.write('"/>')
+
+        f.write('</svg>')
+        f.close()
+
+
         k = cv.waitKey(0)  # выход по ESC
         if k == 27:
             continue_cycle = False
@@ -150,7 +170,8 @@ def scanner_image(filename=""):
 
 if __name__=='__main__':
     # scanner_video()
-   scanner_image("../src/prob.jpg")
+    # scanner_image("../src/prob.jpg")
+    scanner_image("../src/test.jpg")
    #  scanner_image("../src/bubl.jpg")
 
 
