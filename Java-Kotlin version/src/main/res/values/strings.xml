@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">VKR</string>
+    <string name="prompt_email">Email</string>
+    <string name="main_page">Главная</string>
+    <string name="instruction">Инструкция</string>
+    <string name="about">О нас</string>
+    <string name="next">Далее</string>
+    <string name="start_application">Новый проект</string>
+    <string name="take_picture">Take pucture</string>
+    <string name="save_file">Save file</string>
+    <string name="open_picture">Open picture</string>
+    <string name="project_name">Название проекта</string>
+    <string name="square_size">Размер стороны квадрата</string>
+    <string name="height_width">Длина x Ширина полотна</string>
+    <string name="send_picture">Send Picture</string>
+
+</resources>
