@@ -12,20 +12,9 @@
         <action
             android:id="@+id/action_pictureFragment_to_aboutFragment"
             app:destination="@id/aboutFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/pictureFragment"
-        android:name="etu.moevm.vkr.ui.Fragment.PictureFragment"
-        android:label="PictureFragment" >
         <action
-            android:id="@+id/action_pictureFragment_to_instructionsFragment"
-            app:destination="@id/instructionsFragment" />
-        <action
-            android:id="@+id/action_pictureFragment_to_aboutFragment"
-            app:destination="@id/aboutFragment" />
-        <action
-            android:id="@+id/action_pictureFragment_to_greetingFragment"
-            app:destination="@id/startFragment" />
+            android:id="@+id/action_startFragment_to_currentProjectFragment"
+            app:destination="@id/currentProjectFragment" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
@@ -51,4 +40,35 @@
             android:id="@+id/action_instructionsFragment_to_aboutFragment"
             app:destination="@id/aboutFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/currentProjectFragment"
+        android:name="etu.moevm.vkr.ui.Fragment.CurrentProjectFragment"
+        android:label="CurrentProjectFragment" >
+        <action
+            android:id="@+id/action_currentProjectFragment_to_contoursFragment2"
+            app:destination="@id/contoursFragment" />
+        <action
+            android:id="@+id/action_currentProjectFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/contoursFragment"
+        android:name="etu.moevm.vkr.ui.Fragment.ContoursFragment"
+        android:label="ContoursFragment" >
+        <action
+            android:id="@+id/action_contoursFragment_to_currentProjectFragment"
+            app:destination="@id/currentProjectFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="etu.moevm.vkr.ui.Fragment.SettingsFragment"
+        android:label="SettingsFragment" >
+        <action
+            android:id="@+id/action_settingsFragment_to_connectionServertFragment"
+            app:destination="@id/connectionServertFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/connectionServertFragment"
+        android:name="etu.moevm.vkr.ui.Fragment.ConnectionServertFragment"
+        android:label="ConnectionServertFragment" />
 </navigation>

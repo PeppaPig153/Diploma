@@ -1,14 +1,15 @@
 package etu.moevm.vkr.ui.Activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
-import etu.vt.trpo_android.R
 import etu.moevm.vkr.ui.Fragment.PictureFragment
+import etu.vt.trpo_android.R
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -52,22 +53,11 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-//
-//        val navContr = Navigation.findNavController(this@MainActivity, R.id.navHostMain)
-//        var fm: FragmentManager = supportFragmentManager
-//        var fragment: Fragment? = fm.findFragmentById(R.id.fragment_container)
-//
-//        if (fragment != null) {
-//           // fragment = LoginFragment()
-//            fm.beginTransaction()
-//                .replace(R.id.fragment_container, GreetingFragment.newInstance())
-//                .commit()
-//        }
-
     }
 
     override fun onSupportNavigateUp(): Boolean {

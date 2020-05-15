@@ -13,5 +13,6 @@
     <string name="square_size">Размер стороны квадрата</string>
     <string name="height_width">Длина x Ширина полотна</string>
     <string name="send_picture">Send Picture</string>
+    <string name="connection_with_server">Соединение с сервером…</string>
 
 </resources>

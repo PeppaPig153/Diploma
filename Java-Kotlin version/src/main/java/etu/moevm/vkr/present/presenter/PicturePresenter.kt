@@ -26,6 +26,7 @@ import etu.moevm.vkr.repository.PictureRepository
 import etu.moevm.vkr.ui.Fragment.PictureFragment
 import etu.moevm.vkr.util.DecodeBitmapFromInputStream
 import etu.moevm.vkr.util.PermissionManager
+import etu.moevm.vkr.util.getExifAngle
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -64,27 +65,7 @@ class PicturePresenter : MvpPresenter<PictureView>() {
         viewState.showPicture(PictureFragment.SingleBitmap.mbitmap)
     }
 
-    private fun getExifAngle(path: InputStream, fragment: MvpAppCompatFragment): Float {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            PermissionManager().requestPermissionsOpenFile(fragment)
-        }
-        var angle = 0
-        try {
-            val ei = ExifInterface(path)
-            val orientation: Int = ei.getAttributeInt(
-                ExifInterface.TAG_ORIENTATION,
-                ExifInterface.ORIENTATION_UNDEFINED
-            )
-            when (orientation) {
-                ExifInterface.ORIENTATION_ROTATE_90 -> angle = 90
-                ExifInterface.ORIENTATION_ROTATE_180 -> angle = 180
-                ExifInterface.ORIENTATION_ROTATE_270 -> angle = 270
-            }
-        } catch (e: java.lang.Exception) {
-            Log.d("getExifAngle", e.toString())
-        }
-        return angle.toFloat()
-    }
+
 
     /***
      *
