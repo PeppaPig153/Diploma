@@ -53,7 +53,7 @@ class ScannerImage {
         //System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         val filename = struct.pathToFile //"test.jpg"; // Название файла
         val img = Imgcodecs.imread(filename) // чтение из файла
-        val k = 300.0 / img.width()
+        val k = 300.0 / kotlin.math.min(img.width(), img.height())
         Imgproc.resize(img, img, Size(), k, k)
         val gray = Mat(img.rows(), img.cols(), img.type())
         // -----------------------------------------------------------------------------------------
@@ -98,10 +98,10 @@ class ScannerImage {
         }
 
         // отрисовка большого контура
-        Imgproc.drawContours(img, contours, max_index, Scalar(0.0, 255.0, 0.0), 10)
+        Imgproc.drawContours(img, contours, max_index, Scalar(0.0, 255.0, 0.0), 3)
 
         // отрисовка квадрата
-        Imgproc.drawContours(img, contours, square_params[0].toInt(), Scalar(255.0, 0.0, 0.0), 10)
+        Imgproc.drawContours(img, contours, square_params[0].toInt(), Scalar(255.0, 0.0, 0.0), 3)
 
         // сохранение
         Imgcodecs.imwrite(filename, img)
