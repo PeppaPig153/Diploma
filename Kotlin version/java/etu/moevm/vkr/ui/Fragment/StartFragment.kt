@@ -22,6 +22,14 @@ class StartFragment: MvpAppCompatFragment(), StartView {
     override fun onCreate(savedInstanceState: Bundle?) {
         this.retainInstance = true
         super.onCreate(savedInstanceState)
+         val storageDir =
+            File(context?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)?.absolutePath.toString())
+        if (storageDir.isDirectory) {
+            val children: Array<String> = storageDir.list()
+            for (i in children.indices) {
+                File(storageDir, children[i]).delete()
+            }
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?  ): View? {
