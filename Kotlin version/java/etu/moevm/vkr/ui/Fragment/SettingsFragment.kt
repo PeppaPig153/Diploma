@@ -71,7 +71,7 @@ class SettingsFragment: MvpAppCompatFragment(), SettingsView {
                         )
                         Log.d("SIZE_2", " width = $width, height = $length")
                         val storageDir =
-                            context?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)?.absolutePath
+                            context?.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)?.absolutePath
                         val svg_file = SVGwriter.write(
                             MainActivity.StructList.list,
                             params[0],
