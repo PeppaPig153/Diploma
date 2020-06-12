@@ -57,13 +57,13 @@ class ScannerImage {
         Imgproc.resize(img, img, Size(), k, k)
         val gray = Mat(img.rows(), img.cols(), img.type())
         // -----------------------------------------------------------------------------------------
-//        Imgproc.cvtColor(img, gray, Imgproc.COLOR_RGB2GRAY); // изменение цветовой схемы
-//        Mat canny = new Mat(gray.rows(), gray.cols(), gray.type());
-//        Imgproc.Canny(gray, canny, 100, 200, 3, false); // Детектор границ Канни
+        Imgproc.cvtColor(img, gray, Imgproc.COLOR_RGB2GRAY); // изменение цветовой схемы
+        Mat canny = new Mat(gray.rows(), gray.cols(), gray.type());
+        Imgproc.Canny(gray, canny, 100, 200, 3, false); // Детектор границ Канни
         // -----------------------------------------------------------------------------------------
-        Imgproc.cvtColor(img, gray, Imgproc.COLOR_RGB2HSV)
-        val thresh = Mat(gray.rows(), gray.cols(), gray.type())
-        Core.inRange(gray, Scalar(0.0, 0.0, 80.0), Scalar(180.0, 255.0, 255.0), thresh)
+//        Imgproc.cvtColor(img, gray, Imgproc.COLOR_RGB2HSV)
+//        val thresh = Mat(gray.rows(), gray.cols(), gray.type())
+//        Core.inRange(gray, Scalar(0.0, 0.0, 80.0), Scalar(180.0, 255.0, 255.0), thresh)
         // -----------------------------------------------------------------------------------------
         // поиск контуров
         val contours: List<MatOfPoint> = ArrayList()
