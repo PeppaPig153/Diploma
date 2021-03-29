@@ -16,7 +16,7 @@ opencv-python==4.1.1.26
 pep517==0.6.0
 Pillow==6.2.1
 plyer==1.4.2
-Pygments==2.5.2
+Pygments==2.7.4
 pyjnius==1.2.1
 python-for-android==2019.10.6
 pytoml==0.1.21
