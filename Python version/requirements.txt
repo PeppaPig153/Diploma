@@ -14,7 +14,7 @@ MarkupSafe==1.1.1
 numpy==1.17.3
 opencv-python==4.1.1.26
 pep517==0.6.0
-Pillow==6.2.1
+Pillow==8.2.0
 plyer==1.4.2
 Pygments==2.5.2
 pyjnius==1.2.1
